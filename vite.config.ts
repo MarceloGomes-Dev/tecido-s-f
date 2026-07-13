@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/TECIDO-SUBLIMADO/',
+  base: '/tecido-s-f/',
 
   resolve: {
     alias: {
