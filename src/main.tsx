@@ -1,26 +1,26 @@
 // ============================================================
 // CORREÇÃO: MaxListenersExceededWarning e orphaned data
 // ============================================================
-import { EventEmitter } from 'events';
 
-// Aumenta o limite de listeners
-EventEmitter.defaultMaxListeners = 20;
-
-// Suprime avisos específicos (limpa o console)
-const originalWarn = console.warn;
-console.warn = function(...args) {
-  const msg = args[0] || '';
-  if (typeof msg === 'string' && 
-      (msg.includes('orphaned data') || 
-       msg.includes('MaxListenersExceeded') ||
-       msg.includes('Possible EventEmitter memory leak'))) {
-    return;
-  }
-  originalWarn.apply(console, args);
-};
+// Suprime avisos específicos no console do navegador
+// Isso é feito diretamente no console, sem importar módulos Node
+if (typeof window !== 'undefined') {
+  const originalWarn = console.warn;
+  console.warn = function(...args) {
+    const msg = args[0] || '';
+    if (typeof msg === 'string' && 
+        (msg.includes('orphaned data') || 
+         msg.includes('MaxListenersExceeded') ||
+         msg.includes('Possible EventEmitter memory leak') ||
+         msg.includes('MaxListeners'))) {
+      return; // Ignora esses avisos
+    }
+    originalWarn.apply(console, args);
+  };
+}
 
 // ============================================================
-// CÓDIGO PRINCIPAL
+// CÓDIGO PRINCIPAL DA APLICAÇÃO
 // ============================================================
 import React from 'react';
 import ReactDOM from 'react-dom/client';

@@ -6,15 +6,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: '/tecido-s-f/',
-
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '.'),
     },
-  },
-
-  server: {
-    hmr: process.env.DISABLE_HMR !== 'true',
-    watch: process.env.DISABLE_HMR === 'true' ? null : {},
   },
 });
